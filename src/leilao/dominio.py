@@ -1,4 +1,5 @@
 from sys import float_info
+from copy import deepcopy
 
 
 class Usuario:
@@ -37,4 +38,4 @@ class Leilao:
 
     @property
     def lances(self):
-        return self.__lances[:]
+        return deepcopy(self.__lances)
