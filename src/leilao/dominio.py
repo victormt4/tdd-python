@@ -1,6 +1,6 @@
 class Usuario:
 
-    def __init__(self, nome):
+    def __init__(self, nome: str):
         self.__nome = nome
 
     @property
@@ -10,14 +10,14 @@ class Usuario:
 
 class Lance:
 
-    def __init__(self, usuario, valor):
+    def __init__(self, usuario: Usuario, valor: float):
         self.usuario = usuario
         self.valor = valor
 
 
 class Leilao:
 
-    def __init__(self, descricao):
+    def __init__(self, descricao: str):
         self.descricao = descricao
         self.__lances = []
 
