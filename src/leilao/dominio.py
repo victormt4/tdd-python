@@ -1,3 +1,6 @@
+from sys import float_info
+
+
 class Usuario:
 
     def __init__(self, nome: str):
@@ -24,3 +27,18 @@ class Leilao:
     @property
     def lances(self):
         return self.__lances
+
+
+class Avaliador:
+
+    def __init__(self):
+        self.maior_lance = float_info.min
+        self.menor_lance = float_info.max
+
+    def avalia(self, leilao: Leilao):
+
+        for lance in leilao.lances:
+            if lance.valor > self.maior_lance:
+                self.maior_lance = lance.valor
+            if lance.valor < self.menor_lance:
+                self.menor_lance = lance.valor
