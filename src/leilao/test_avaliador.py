@@ -14,8 +14,8 @@ class TestAvaliador(TestCase):
         yuri = Usuario('Yuri')
         lance_yuri = Lance(yuri, 100.0)
 
-        self.leilao.lances.append(lance_yuri)
-        self.leilao.lances.append(self.lance_gui)
+        self.leilao.propor_lance(lance_yuri)
+        self.leilao.propor_lance(self.lance_gui)
 
         avaliador = Avaliador()
         avaliador.avalia(self.leilao)
@@ -30,8 +30,8 @@ class TestAvaliador(TestCase):
         yuri = Usuario('Yuri')
         lance_yuri = Lance(yuri, 100.0)
 
-        self.leilao.lances.append(self.lance_gui)
-        self.leilao.lances.append(lance_yuri)
+        self.leilao.propor_lance(self.lance_gui)
+        self.leilao.propor_lance(lance_yuri)
 
         avaliador = Avaliador()
         avaliador.avalia(self.leilao)
@@ -43,7 +43,7 @@ class TestAvaliador(TestCase):
         self.assertEqual(maior_valor_esperado, avaliador.maior_lance)
 
     def test_deve_retornar_o_mesmo_valor_para_os_dois_lances_ao_inserir_um_lance(self):
-        self.leilao.lances.append(self.lance_gui)
+        self.leilao.propor_lance(self.lance_gui)
 
         avaliador = Avaliador()
         avaliador.avalia(self.leilao)
@@ -57,9 +57,9 @@ class TestAvaliador(TestCase):
         lance_yuri = Lance(yuri, 100.0)
         lance_vini = Lance(vini, 200.0)
 
-        self.leilao.lances.append(self.lance_gui)
-        self.leilao.lances.append(lance_yuri)
-        self.leilao.lances.append(lance_vini)
+        self.leilao.propor_lance(self.lance_gui)
+        self.leilao.propor_lance(lance_yuri)
+        self.leilao.propor_lance(lance_vini)
 
         avaliador = Avaliador()
         avaliador.avalia(self.leilao)
