@@ -1,5 +1,6 @@
 from sys import float_info
 from copy import deepcopy
+from typing import List
 
 
 class Usuario:
@@ -23,18 +24,19 @@ class Leilao:
 
     def __init__(self, descricao: str):
         self.descricao = descricao
-        self.__lances = []
+        self.__lances: List[Lance] = []
         self.maior_lance = float_info.min
         self.menor_lance = float_info.max
 
     def propor_lance(self, lance: Lance):
 
-        if lance.valor > self.maior_lance:
-            self.maior_lance = lance.valor
-        if lance.valor < self.menor_lance:
-            self.menor_lance = lance.valor
+        if len(self.__lances) == 0 or self.__lances[-1].usuario != lance.usuario:
+            if lance.valor > self.maior_lance:
+                self.maior_lance = lance.valor
+            if lance.valor < self.menor_lance:
+                self.menor_lance = lance.valor
 
-        self.__lances.append(lance)
+            self.__lances.append(lance)
 
     @property
     def lances(self):
