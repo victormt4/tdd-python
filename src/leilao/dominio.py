@@ -17,6 +17,10 @@ class Usuario:
     def saldo(self):
         return self.__saldo
 
+    def propor_lance(self, leilao, valor: float):
+        leilao.propor_lance(Lance(self, valor))
+        self.__saldo -= valor
+
 
 class Lance:
 
