@@ -27,7 +27,7 @@ class TestLeilao(TestCase):
         yuri = Usuario('Yuri', 500.0)
         lance_yuri = Lance(yuri, 100.0)
 
-        with self.assertRaises(ValueError):
+        with self.assertRaises(LanceInvalido):
             self.leilao.propor_lance(self.lance_gui)
             self.leilao.propor_lance(lance_yuri)
 
