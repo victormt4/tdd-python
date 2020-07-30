@@ -5,12 +5,17 @@ from typing import List
 
 class Usuario:
 
-    def __init__(self, nome: str):
+    def __init__(self, nome: str, saldo: float):
         self.__nome = nome
+        self.__saldo = saldo
 
     @property
     def nome(self):
         return self.__nome
+
+    @property
+    def saldo(self):
+        return self.__saldo
 
 
 class Lance:
@@ -30,7 +35,8 @@ class Leilao:
 
     def propor_lance(self, lance: Lance):
 
-        if len(self.__lances) == 0 or (self.__lances[-1].usuario != lance.usuario and lance.valor > self.__lances[-1].valor):
+        if len(self.__lances) == 0 or (
+                self.__lances[-1].usuario != lance.usuario and lance.valor > self.__lances[-1].valor):
             if lance.valor > self.maior_lance:
                 self.maior_lance = lance.valor
             if lance.valor < self.menor_lance:
