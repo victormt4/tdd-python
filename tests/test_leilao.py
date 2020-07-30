@@ -6,12 +6,12 @@ from src.leilao.dominio import Usuario, Lance, Leilao
 class TestLeilao(TestCase):
 
     def setUp(self):
-        self.gui = Usuario('Gui')
+        self.gui = Usuario('Gui', 500.0)
         self.lance_gui = Lance(self.gui, 150.0)
         self.leilao = Leilao('Celular')
 
     def test_deve_retornar_valores_corretos_ao_inserir_em_ordem_crescente(self):
-        yuri = Usuario('Yuri')
+        yuri = Usuario('Yuri', 500.0)
         lance_yuri = Lance(yuri, 100.0)
 
         self.leilao.propor_lance(lance_yuri)
@@ -24,7 +24,7 @@ class TestLeilao(TestCase):
         self.assertEqual(maior_valor_esperado, self.leilao.maior_lance)
 
     def test_nao_deve_permitir_propor_novo_lance_com_valor_menor_que_lance_anterior(self):
-        yuri = Usuario('Yuri')
+        yuri = Usuario('Yuri', 500.0)
         lance_yuri = Lance(yuri, 100.0)
 
         with self.assertRaises(ValueError):
@@ -38,8 +38,8 @@ class TestLeilao(TestCase):
         self.assertEqual(150.0, self.leilao.maior_lance)
 
     def test_deve_retornar_valores_corretos_ao_inserir_tres_lances(self):
-        yuri = Usuario('Yuri')
-        vini = Usuario('Vini')
+        yuri = Usuario('Yuri', 500.0)
+        vini = Usuario('Vini', 500.0)
         lance_yuri = Lance(yuri, 200.0)
         lance_vini = Lance(vini, 250.0)
 
@@ -57,7 +57,7 @@ class TestLeilao(TestCase):
         self.assertEqual(1, quantidade_lances)
 
     def test_deve_permitir_propor_lance_caso_ultimo_usuario_seja_diferente(self):
-        yuri = Usuario('Yuri')
+        yuri = Usuario('Yuri', 500.0)
         lance_yuri = Lance(yuri, 200.0)
 
         self.leilao.propor_lance(self.lance_gui)
