@@ -1,5 +1,6 @@
 from copy import deepcopy
 from typing import List
+from src.leilao.excecoes import LanceInvalido
 
 
 class Usuario:
@@ -18,7 +19,7 @@ class Usuario:
 
     def propor_lance(self, leilao, valor: float):
         if not self.__valor_valido(valor):
-            raise ValueError('Valor proposto maior que saldo disponível')
+            raise LanceInvalido('Valor proposto maior que saldo disponível')
 
         leilao.propor_lance(Lance(self, valor))
         self.__saldo -= valor
@@ -53,7 +54,7 @@ class Leilao:
             self.__lances.append(lance)
 
         else:
-            raise ValueError('Erro ao propor lance')
+            raise LanceInvalido('Erro ao propor lance')
 
     @property
     def lances(self):

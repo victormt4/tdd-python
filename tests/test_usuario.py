@@ -1,4 +1,5 @@
 from src.leilao.dominio import Usuario, Leilao
+from src.leilao.excecoes import LanceInvalido
 import pytest
 
 
@@ -31,5 +32,5 @@ def test_deve_permitir_propor_lance_caso_valor_seja_igual_ao_saldo(vini, leilao)
 
 
 def test_nao_deve_permitir_propor_lance_caso_valor_seja_maior_que_saldo(vini, leilao):
-    with pytest.raises(ValueError):
+    with pytest.raises(LanceInvalido):
         vini.propor_lance(leilao, 200.0)

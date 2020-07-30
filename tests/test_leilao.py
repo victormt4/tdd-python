@@ -1,6 +1,6 @@
 from unittest import TestCase
-
 from src.leilao.dominio import Usuario, Lance, Leilao
+from src.leilao.excecoes import LanceInvalido
 
 
 class TestLeilao(TestCase):
@@ -70,6 +70,6 @@ class TestLeilao(TestCase):
     def test_nao_deve_permitir_propor_lance_caso_usuario_seja_o_mesmo(self):
         lance_gui_2 = Lance(self.gui, 200)
 
-        with self.assertRaises(ValueError):
+        with self.assertRaises(LanceInvalido):
             self.leilao.propor_lance(self.lance_gui)
             self.leilao.propor_lance(lance_gui_2)
