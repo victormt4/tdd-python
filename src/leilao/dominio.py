@@ -1,6 +1,6 @@
+from src.leilao.excecoes import LanceInvalido
 from copy import deepcopy
 from typing import List
-from src.leilao.excecoes import LanceInvalido
 
 
 class Usuario:
@@ -53,9 +53,6 @@ class Leilao:
 
             self.__lances.append(lance)
 
-        else:
-            raise LanceInvalido('Erro ao propor lance')
-
     @property
     def lances(self):
         return deepcopy(self.__lances)
@@ -64,11 +61,17 @@ class Leilao:
         return self.__lances
 
     def __usuarios_diferentes(self, lance):
-        return self.__lances[-1].usuario != lance.usuario
+        if self.__lances[-1].usuario != lance.usuario:
+            return True
+
+        raise LanceInvalido('O mesmo usuário não pode propor dois lances seguidos')
 
     def __lance_maior_que_anterior(self, lance):
-        return lance.valor > self.__lances[-1].valor
+        if lance.valor > self.__lances[-1].valor:
+            return True
+
+        raise LanceInvalido('O valor do lance deve ser maior do que o lance anterior')
 
     def __lance_valido(self, lance):
         return not self.__possui_lances() or (
-                    self.__usuarios_diferentes(lance) and self.__lance_maior_que_anterior(lance))
+                self.__usuarios_diferentes(lance) and self.__lance_maior_que_anterior(lance))
