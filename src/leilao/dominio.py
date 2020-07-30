@@ -18,6 +18,9 @@ class Usuario:
         return self.__saldo
 
     def propor_lance(self, leilao, valor: float):
+        if valor > self.__saldo:
+            raise ValueError('Valor proposto maior que saldo disponível')
+
         leilao.propor_lance(Lance(self, valor))
         self.__saldo -= valor
 
