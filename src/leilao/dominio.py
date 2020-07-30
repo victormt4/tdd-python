@@ -17,11 +17,14 @@ class Usuario:
         return self.__saldo
 
     def propor_lance(self, leilao, valor: float):
-        if valor > self.__saldo:
+        if not self.__valor_valido(valor):
             raise ValueError('Valor proposto maior que saldo disponível')
 
         leilao.propor_lance(Lance(self, valor))
         self.__saldo -= valor
+
+    def __valor_valido(self, valor: float):
+        return valor <= self.__saldo
 
 
 class Lance:
@@ -41,8 +44,8 @@ class Leilao:
 
     def propor_lance(self, lance: Lance):
 
-        if not self.__lances or self.__lances[-1].usuario != lance.usuario and lance.valor > self.__lances[-1].valor:
-            if not self.__lances:
+        if self.__lance_valido(lance):
+            if not self.__possui_lances():
                 self.menor_lance = lance.valor
 
             self.maior_lance = lance.valor
@@ -55,3 +58,16 @@ class Leilao:
     @property
     def lances(self):
         return deepcopy(self.__lances)
+
+    def __possui_lances(self):
+        return self.__lances
+
+    def __usuarios_diferentes(self, lance):
+        return self.__lances[-1].usuario != lance.usuario
+
+    def __lance_maior_que_anterior(self, lance):
+        return lance.valor > self.__lances[-1].valor
+
+    def __lance_valido(self, lance):
+        return not self.__possui_lances() or (
+                    self.__usuarios_diferentes(lance) and self.__lance_maior_que_anterior(lance))
